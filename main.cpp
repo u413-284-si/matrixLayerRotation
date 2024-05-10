@@ -28,7 +28,7 @@
 std::string 				ltrim(const std::string&);
 std::string 				rtrim(const std::string&);
 std::vector<std::string>	split(const std::string&);
-void 						matrixRotation(std::vector<std::vector<int>>& matrix, int r);
+void 						matrixRotation(std::vector<std::vector<int>> matrix, int r);
 void						checkMatrixConditions(const std::vector<std::string>& input, int& m, int& n, int& r);
 void						checkRowSize(const std::vector<std::string>& matrixRow, const int& n);
 void						checkMatrixElements(const int& element);
@@ -60,7 +60,7 @@ int main(void)
     return 0;
 }
 
-void matrixRotation(std::vector<std::vector<int>>& matrix, int r){
+void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	m = matrix.size();
 	int	n = matrix[0].size();
 	int	cycleNum = std::min(m, n) / 2;
@@ -96,12 +96,7 @@ void matrixRotation(std::vector<std::vector<int>>& matrix, int r){
 		for (; x > cycle; x--)
 			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
 	}
-
-	for (y = 0; y < m; y++){
-		for (x = 0; x < n; x++)
-			std::cout << matrix[y][x] << " ";
-		std::cout << std::endl;
-	}
+	printMatrix(matrix, m, n);
 	return;
 }
 
