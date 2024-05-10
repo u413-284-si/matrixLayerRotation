@@ -33,18 +33,25 @@ void						checkMatrixConditions(const std::vector<std::string>& input, int& m, i
 void						checkRowSize(const std::vector<std::string>& matrixRow, const int& n);
 void						checkMatrixElements(const int& element);
 void						parseMatrixConditions(int& m, int& n, int& r);
-void						parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n);
+void						parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n, bool& constMatrix);
+void						printMatrix(const std::vector<std::vector<int>>& matrix, const int& m, const int& n);
 
 int main(void)
 {
-	int	m, n, r;
+	int		m, n, r;
+	bool	constMatrix = true;
 
 	try{
 		parseMatrixConditions(m, n, r);
 		std::vector<std::vector<int>>	matrix(m);
-		parseMatrixElements(matrix, m, n);
+		parseMatrixElements(matrix, m, n, constMatrix);
 		std::cout << "\nOutput:\n";
-    	matrixRotation(matrix, r);
+		if (constMatrix){
+			std::cout << "All equal" << std::endl;
+			printMatrix(matrix, m, n);
+		}
+		else
+	    	matrixRotation(matrix, r);
 	}
 	catch(std::exception& e){
 		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
@@ -139,7 +146,9 @@ void	parseMatrixConditions(int& m, int& n, int& r){
 	return;
 }
 
-void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n){
+void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n, bool& constMatrix){
+	int	firstElement;
+
 	for (int i = 0; i < m; i++) {
         matrix[i].resize(n);
         std::string matrixRowTempTemp;
@@ -150,6 +159,10 @@ void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, co
 		for (int j = 0; j < n; j++) {
 			int matrixRowItem = stoi(matrixRowTemp[j]);
 			checkMatrixElements(matrixRowItem);
+			if (i == 0 && j == 0)
+				firstElement = matrixRowItem;
+			if (constMatrix && matrixRowItem != firstElement)
+				constMatrix = false;
 			matrix[i][j] = matrixRowItem;
 		}
     }
@@ -195,4 +208,13 @@ std::vector<std::string> split(const std::string &str) {
     tokens.push_back(str.substr(start));
 
     return tokens;
+}
+
+void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& m, const int& n){
+	for (int y = 0; y < m; y++){
+		for (int x = 0; x < n; x++)
+			std::cout << matrix[y][x] << " ";
+		std::cout << std::endl;
+	}
+	return;
 }
