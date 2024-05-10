@@ -9,12 +9,6 @@
 // ANSI color codes
 # define RESET   "\033[0m"
 # define RED     "\033[31m"    
-# define GREEN   "\033[32m"    
-# define YELLOW  "\033[33m"    
-# define BLUE    "\033[34m"    
-# define MAGENTA "\033[35m"    
-# define CYAN    "\033[36m"    
-# define WHITE   "\033[37m"
 
 // Error definitions
 # define INV_ARG_NUM "invalid number of arguments provided\nexpected: m n r"
@@ -46,10 +40,8 @@ int main(void)
 		std::vector<std::vector<int>>	matrix(m);
 		parseMatrixElements(matrix, m, n, constMatrix);
 		std::cout << "\nOutput:\n";
-		if (constMatrix){
-			std::cout << "All equal" << std::endl;
+		if (constMatrix)
 			printMatrix(matrix, m, n);
-		}
 		else
 	    	matrixRotation(matrix, r);
 	}
