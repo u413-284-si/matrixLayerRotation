@@ -77,7 +77,7 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 		cycleLen = 2 * ((m - 2 * cycle) + (n - 2 * cycle)) - 4;
 		if (r == cycleLen)
 			continue;
-		i = -r % cycleLen + cycleLen;
+		i = cycleLen - r % cycleLen;
 		x = y = cycle;
 		for (; y < m - cycle - 1; y++)
 			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
