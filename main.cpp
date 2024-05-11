@@ -63,11 +63,17 @@ rotation. Finally the new matrix is printed to standard output.
 void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	nRows = matrix.size();
 	int	nCols = matrix[0].size();
+	// Number of cycles determined by the smaller matrix dimension which is
+	// required to be even. One cycle takes up two rows/columns.
 	int	cycleNum = std::min(nRows, nCols) / 2;
+	// Array with as many rows as number of cycles with each row having the size
+	// of the largest cycle
 	int	cycleArr[cycleNum][2 * (nRows + nCols) - 4];
 	int	cycleLen, i, x, y;
 
 	std::fill(&cycleArr[0][0], &cycleArr[0][0] + cycleNum * (2 * (nRows + nCols) - 4), 0);
+	// Spiraling starts at matrix[0][0] going counter-clockwise. Moves inwards
+	// along the diagonal.
 	for (int cycleIdx = 0; cycleIdx < cycleNum; cycleIdx++){
 		i = 0;
 		x = y = cycleIdx;
