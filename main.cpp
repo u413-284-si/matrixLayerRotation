@@ -56,10 +56,10 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	m = matrix.size();
 	int	n = matrix[0].size();
 	int	cycleNum = std::min(m, n) / 2;
-	int	cycleArr[cycleNum][2 * (m + n) - 4];
+	int	cycleArr[cycleNum][2 * (m + n) - 4] = {};
 	int	cycle, cycleLen, i, x, y;
 
-	std::memset(cycleArr, 0, sizeof(cycleArr));
+	//std::memset(cycleArr, 0, sizeof(cycleArr));
 	for (cycle = 0; cycle < cycleNum; cycle++){
 		i = 0;
 		x = y = cycle;
