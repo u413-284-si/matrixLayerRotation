@@ -11,10 +11,10 @@
 # define RED     "\033[31m"    
 
 // Error definitions
-# define INV_ARG_NUM "invalid number of arguments provided\nexpected: m n r"
-# define INV_MTX_DIM "invalid matrix dimension provided\nexpected: 2 <= m, n <= 300"
-# define INV_ROT_DIM "invalid rotation dimension provided\nexpected: 1 <= r <= 10⁹"
-# define INV_MTX_MIN "invalid matrix dimension provided\nexpected: min(m, n) to be even"
+# define INV_ARG_NUM "invalid number of arguments provided\nexpected: nRows nCols nRotations"
+# define INV_MTX_DIM "invalid matrix dimension provided\nexpected: 2 <= nRows, nCols <= 300"
+# define INV_ROT_DIM "invalid rotation dimension provided\nexpected: 1 <= nRotations <= 10⁹"
+# define INV_MTX_MIN "invalid matrix dimension provided\nexpected: min(nRows, nCols) to be even"
 # define INV_ROW_SZ	"invalid number of elements in row"
 # define INV_ELEM_DIM "invalid matrix element dimension provided\n expected: 1 <= element <= 10⁸"
 
@@ -23,27 +23,27 @@ std::string 				ltrim(const std::string&);
 std::string 				rtrim(const std::string&);
 std::vector<std::string>	split(const std::string&);
 void 						matrixRotation(std::vector<std::vector<int>> matrix, int r);
-void						checkMatrixConditions(const std::vector<std::string>& input, int& m, int& n, int& r);
-void						checkRowSize(const std::vector<std::string>& matrixRow, const int& n);
+void						checkMatrixConditions(const std::vector<std::string>& input, int& nRows, int& nCols, int& nRotations);
+void						checkRowSize(const std::vector<std::string>& matrixRow, const int& nCols);
 void						checkMatrixElements(const int& element);
-void						parseMatrixConditions(int& m, int& n, int& r);
-void						parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n, bool& constMatrix);
-void						printMatrix(const std::vector<std::vector<int>>& matrix, const int& m, const int& n);
+void						parseMatrixConditions(int& nRows, int& nCols, int& nRotations);
+void						parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols, bool& constMatrix);
+void						printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols);
 
 int main(void)
 {
-	int		m, n, r;
+	int		nRows, nCols, nRotations;
 	bool	constMatrix = true;
 
 	try{
-		parseMatrixConditions(m, n, r);
-		std::vector<std::vector<int>>	matrix(m);
-		parseMatrixElements(matrix, m, n, constMatrix);
+		parseMatrixConditions(nRows, nCols, nRotations);
+		std::vector<std::vector<int>>	matrix(nRows);
+		parseMatrixElements(matrix, nRows, nCols, constMatrix);
 		std::cout << "\nOutput:\n";
 		if (constMatrix)
-			printMatrix(matrix, m, n);
+			printMatrix(matrix, nRows, nCols);
 		else
-	    	matrixRotation(matrix, r);
+	    	matrixRotation(matrix, nRotations);
 	}
 	catch(std::exception& e){
 		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
@@ -53,67 +53,66 @@ int main(void)
 }
 
 void matrixRotation(std::vector<std::vector<int>> matrix, int r){
-	int	m = matrix.size();
-	int	n = matrix[0].size();
-	int	cycleNum = std::min(m, n) / 2;
-	int	cycleArr[cycleNum][2 * (m + n) - 4] = {};
-	int	cycle, cycleLen, i, x, y;
+	int	nRows = matrix.size();
+	int	nCols = matrix[0].size();
+	int	cycleNum = std::min(nRows, nCols) / 2;
+	int	cycleArr[cycleNum][2 * (nRows + nCols) - 4] = {};
+	int	cycleIdx, cycleLen, i, x, y;
 
-	//std::memset(cycleArr, 0, sizeof(cycleArr));
-	for (cycle = 0; cycle < cycleNum; cycle++){
+	for (cycleIdx = 0; cycleIdx < cycleNum; cycleIdx++){
 		i = 0;
-		x = y = cycle;
-		for (; y < m - cycle - 1; y++)
-			cycleArr[cycle][i++] = matrix[y][x];
-		for (; x < n - cycle - 1; x++)
-			cycleArr[cycle][i++] = matrix[y][x];
-		for (; y > cycle; y--)
-			cycleArr[cycle][i++] = matrix[y][x];
-		for (; x > cycle; x--)
-			cycleArr[cycle][i++] = matrix[y][x];
+		x = y = cycleIdx;
+		for (; y < nRows - cycleIdx - 1; y++)
+			cycleArr[cycleIdx][i++] = matrix[y][x];
+		for (; x < nCols - cycleIdx - 1; x++)
+			cycleArr[cycleIdx][i++] = matrix[y][x];
+		for (; y > cycleIdx; y--)
+			cycleArr[cycleIdx][i++] = matrix[y][x];
+		for (; x > cycleIdx; x--)
+			cycleArr[cycleIdx][i++] = matrix[y][x];
 	}
 
-	for (cycle = 0; cycle < cycleNum; cycle++){
-		cycleLen = 2 * ((m - 2 * cycle) + (n - 2 * cycle)) - 4;
+	for (cycleIdx = 0; cycleIdx < cycleNum; cycleIdx++){
+		cycleLen = 2 * ((nRows - 2 * cycleIdx) + (nCols - 2 * cycleIdx)) - 4;
 		if (r == cycleLen)
 			continue;
-		i = cycleLen - r % cycleLen;
-		x = y = cycle;
-		for (; y < m - cycle - 1; y++)
-			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
-		for (; x < n - cycle -1; x++)
-			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
-		for (; y > cycle; y--)
-			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
-		for (; x > cycle; x--)
-			matrix[y][x] = cycleArr[cycle][i++ % cycleLen];
+		i = cycleLen - (r % cycleLen);
+		x = y = cycleIdx;
+		for (; y < nRows - cycleIdx - 1; y++)
+			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
+		for (; x < nCols - cycleIdx -1; x++)
+			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
+		for (; y > cycleIdx; y--)
+			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
+		for (; x > cycleIdx; x--)
+			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
 	}
-	printMatrix(matrix, m, n);
+	printMatrix(matrix, nRows, nCols);
 	return;
 }
 
 // Input checking
-void	checkMatrixConditions(const std::vector<std::string>& input, int& m, int& n, int& r){
+void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, int& nCols, int& nRotations){
 	if (input.size() != 3)
 		throw std::invalid_argument(INV_ARG_NUM);
 
-	m = stoi(input[0]);
-	if (m < 2 || m > 300)
+	nRows = stoi(input[0]);
+	if (nRows < 2 || nRows > 300)
 		throw std::invalid_argument(INV_MTX_DIM);
-	n = stoi(input[1]);
-	if (n < 2 || n > 300)
+	nCols = stoi(input[1]);
+	if (nCols < 2 || nCols > 300)
 		throw std::invalid_argument(INV_MTX_DIM);
-	if (std::min(m, n) % 2 != 0)
+	if (std::min(nRows, nCols) % 2 != 0)
 		throw std::invalid_argument(INV_MTX_MIN);
 
-	r = stoi(input[2]);
-	if (r < 1 || r > 1e9)
+	nRotations = stoi(input[2]);
+	if (nRotations < 1 || nRotations > 1e9)
 		throw std::invalid_argument(INV_ROT_DIM);
 	return;
 }
 
-void	checkRowSize(const std::vector<std::string>& matrixRow, const int& n){
-	if (static_cast<int>(matrixRow.size()) != n)
+void	checkRowSize(const std::vector<std::string>& matrixRow, const int& nCols){
+	if (static_cast<int>(matrixRow.size()) != nCols)
 		throw std::invalid_argument(INV_ROW_SZ);
 	return;
 }
@@ -124,26 +123,26 @@ void	checkMatrixElements(const int& element){
 	return;
 }
 
-void	parseMatrixConditions(int& m, int& n, int& r){
+void	parseMatrixConditions(int& nRows, int& nCols, int& nRotations){
     std::string	firstMultipleInputTemp;
 
 	std::getline(std::cin, firstMultipleInputTemp);
     std::vector<std::string> firstMultipleInput = split(ltrim(rtrim(firstMultipleInputTemp)));
-	checkMatrixConditions(firstMultipleInput, m, n, r);
+	checkMatrixConditions(firstMultipleInput, nRows, nCols, nRotations);
 	return;
 }
 
-void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n, bool& constMatrix){
+void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols, bool& constMatrix){
 	int	firstElement = {};
 
-	for (int i = 0; i < m; i++) {
-        matrix[i].resize(n);
+	for (int i = 0; i < nRows; i++) {
+        matrix[i].resize(nCols);
         std::string matrixRowTempTemp;
         std::getline(std::cin, matrixRowTempTemp);
         std::vector<std::string> matrixRowTemp = split(ltrim(rtrim(matrixRowTempTemp)));
-		checkRowSize(matrixRowTemp, n);
+		checkRowSize(matrixRowTemp, nCols);
 
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < nCols; j++) {
 			int matrixRowItem = stoi(matrixRowTemp[j]);
 			checkMatrixElements(matrixRowItem);
 			if (i == 0 && j == 0)
@@ -197,9 +196,9 @@ std::vector<std::string> split(const std::string &str) {
     return tokens;
 }
 
-void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& m, const int& n){
-	for (int y = 0; y < m; y++){
-		for (int x = 0; x < n; x++)
+void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols){
+	for (int y = 0; y < nRows; y++){
+		for (int x = 0; x < nCols; x++)
 			std::cout << matrix[y][x] << " ";
 		std::cout << std::endl;
 	}
