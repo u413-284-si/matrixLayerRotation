@@ -82,6 +82,8 @@ void	testOverflow(void){
 	return;
 }
 
+/* Test for non numeric characters
+ */
 void	testNonNumeric(void){
 	std::pair<std::string, std::string>	tests[] = {
 		std::make_pair("r 4 1\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", "2 3 4 8\n1 7 11 12\n5 6 10 16\n9 13 14 15"),
@@ -93,6 +95,8 @@ void	testNonNumeric(void){
 	return;
 }
 
+/* Test for empty strings
+ */
 void	testEmpty(void){
 	std::pair<std::string, std::string>	tests[] = {
 		std::make_pair(""" 4 1\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", "2 3 4 8\n1 7 11 12\n5 6 10 16\n9 13 14 15"),
@@ -105,6 +109,8 @@ void	testEmpty(void){
 	return;
 }
 
+/* Test for invalid input
+ */
 void	testInvalid(void){
 	std::pair<std::string, std::string>	tests[] = {
 		std::make_pair("4 4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16", "2 3 4 8\n1 7 11 12\n5 6 10 16\n9 13 14 15"),
