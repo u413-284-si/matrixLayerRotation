@@ -134,7 +134,7 @@ void	parseMatrixConditions(int& m, int& n, int& r){
 }
 
 void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& m, const int& n, bool& constMatrix){
-	int	firstElement;
+	int	firstElement = {};
 
 	for (int i = 0; i < m; i++) {
         matrix[i].resize(n);
