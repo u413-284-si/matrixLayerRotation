@@ -122,6 +122,9 @@ void	testInvalid(void){
 		std::make_pair("2 2 3\n1 0\n1 1", "1 1\n1 1"),
 		std::make_pair("2 2 3\n1 -1\n1 1", "1 1\n1 1"),
 		std::make_pair("2 2 3\n1 100000001\n1 1", "1 1\n1 1"),
+		std::make_pair("2 2 3\n1 1", "1 1\n1 1"),
+		std::make_pair("2 2 3\n", "1 1\n1 1"),
+		std::make_pair("2 2 3\n1 1\n1 1\n1 1", "1 1\n1 1"),	
 	};
 	runTests("INVALID INPUT TEST CASES", sizeof(tests) / sizeof(tests[0]), tests);
 	return;
