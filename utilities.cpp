@@ -51,9 +51,13 @@ std::vector<std::string> split(const std::string &str) {
  */
 void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols){
 	for (int y = 0; y < nRows; y++){
-		for (int x = 0; x < nCols; x++)
-			std::cout << matrix[y][x] << " ";
-		std::cout << std::endl;
+		for (int x = 0; x < nCols; x++){
+			std::cout << matrix[y][x];
+			if (x < nCols -1)
+				std::cout << " ";
+		}
+		if (y < nRows - 1)
+			std::cout << std::endl;
 	}
 	return;
 }
