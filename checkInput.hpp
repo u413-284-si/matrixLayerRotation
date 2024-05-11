@@ -14,7 +14,7 @@
 #define INV_ROT_DIM "invalid rotation dimension provided\nexpected: 1 <= nRotations <= 10⁹"
 #define INV_MTX_MIN "invalid matrix dimension provided\nexpected: min(nRows, nCols) to be even"
 #define INV_ROW_SZ	"invalid number of elements in row"
-#define INV_ELEM_DIM "invalid matrix element dimension provided\n expected: 1 <= element <= 10⁸"
+#define INV_ELEM_DIM "invalid matrix element dimension provided\nexpected: 1 <= element <= 10⁸"
 
 /* ====== DECLARATIONS ====== */
 void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, int& nCols, int& nRotations);
