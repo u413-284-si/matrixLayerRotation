@@ -52,6 +52,14 @@ int main(void)
     return 0;
 }
 
+/* Take matrix to be rotated and the number of rotations.
+Read matrix elements into a buffer array "cycleArr". The matrix is read in
+cycles spiraling inwards where each cycle is traversed in counter-clockwise
+direction. One cycle is saved into one row of "cycleArr". Then the matrix is
+traversed in the same manner where each element is being assigned the
+corresponding element from "cycleArr" in order to represent a counter-clockwise
+rotation. Finally the new matrix is printed to standard output.  
+ */
 void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	nRows = matrix.size();
 	int	nCols = matrix[0].size();
@@ -75,8 +83,13 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 
 	for (int cycleIdx = 0; cycleIdx < cycleNum; cycleIdx++){
 		cycleLen = 2 * ((nRows - 2 * cycleIdx) + (nCols - 2 * cycleIdx)) - 4;
-		if (r == cycleLen)
+		// If number of rotations is equal to number of elements in the cycle
+		// (or a multiple of it), the elements would only rotate to their original position
+		if (r % cycleLen == 0)
 			continue;
+		// Substract the number of rotations from the number of elements in the
+		// cycle to get the index for the element to replace matrix[0][0]. 
+		// Use modulo to stay in range of [0, cyclelen]
 		i = cycleLen - (r % cycleLen);
 		x = y = cycleIdx;
 		for (; y < nRows - cycleIdx - 1; y++)
@@ -93,6 +106,10 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 }
 
 // Input checking
+
+/* Verify validity of input regarding matrix dimensions and number of
+rotations according to the subject limitations.
+ */
 void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, int& nCols, int& nRotations){
 	if (input.size() != 3)
 		throw std::invalid_argument(INV_ARG_NUM);
@@ -112,18 +129,25 @@ void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, in
 	return;
 }
 
+/* Verify number of row elements corresponds to the amount specified
+beforehand as number of columns.
+ */
 void	checkRowSize(const std::vector<std::string>& matrixRow, const int& nCols){
 	if (static_cast<int>(matrixRow.size()) != nCols)
 		throw std::invalid_argument(INV_ROW_SZ);
 	return;
 }
 
+/* Verifiy that each matrix element stays within the subject limitations.
+ */
 void	checkMatrixElements(const int& element){
 	if (element < 1 || element > 1e8)
 		throw std::invalid_argument(INV_ELEM_DIM);
 	return;
 }
 
+/* Parse line from standard input and check its contents validity.
+ */
 void	parseMatrixConditions(int& nRows, int& nCols, int& nRotations){
     std::string	firstMultipleInputTemp;
 
@@ -133,6 +157,11 @@ void	parseMatrixConditions(int& nRows, int& nCols, int& nRotations){
 	return;
 }
 
+/* Parse as many lines from standard input as specified by "nRows" and check its
+contents validity. Save valid elements into matrix. If one element is different
+from the first, set the boolean "constMatrix" to false, indicating that the
+matrix is not constant.
+*/
 void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols, bool& constMatrix){
 	int	firstElement = {};
 
@@ -157,6 +186,9 @@ void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows
 }
 
 // Utilities
+
+/* Remove spaces at the beginning of the string str.
+ */
 std::string ltrim(const std::string& str) {
     std::string s(str);
 
@@ -168,6 +200,8 @@ std::string ltrim(const std::string& str) {
     return s;
 }
 
+/* Remove spaces from the end of the string str.
+ */
 std::string rtrim(const std::string &str) {
     std::string s(str);
 
@@ -179,6 +213,9 @@ std::string rtrim(const std::string &str) {
     return s;
 }
 
+/* Split main string str by spaces and save substrings into a string vector.
+Skips intermediary spaces.
+ */
 std::vector<std::string> split(const std::string &str) {
     std::vector<std::string> tokens;
 
@@ -197,6 +234,8 @@ std::vector<std::string> split(const std::string &str) {
     return tokens;
 }
 
+/* Print matrix elements separated by a space to standard output line by line.
+ */
 void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols){
 	for (int y = 0; y < nRows; y++){
 		for (int x = 0; x < nCols; x++)
