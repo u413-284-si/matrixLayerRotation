@@ -28,9 +28,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(CXX) $(CXXFLAGS) $(OBJ) -o $@
+	@printf "compilation successful [$@]\n"
+	@printf "$@ created!\n"
 
 $(TEST): $(OBJ_DIR) $(TEST_OBJ)
 	@$(CXX) $(CXXFLAGS) $(TEST_OBJ) -o $@
+	@printf "compilation successful [$@]\n"
+	@printf "$@ created!\n"
 
 $(OBJ_DIR)/%.o: %.cpp 	
 	@$(COMPILE) $< -o $@
@@ -41,14 +45,17 @@ $(OBJ_DIR):
 .PHONY: clean
 clean:
 	@$(RM) $(OBJ_DIR)
+	@printf "removed dir $(OBJ_DIR)\n"
 
 .PHONY: fclean
 fclean: clean
 	@$(RM) $(NAME)
+	@printf "removed binary $(NAME)\n"
 
 .PHONY: tclean
 tclean: clean
 	@$(RM) $(TEST)
+	@printf "removed binary $(TEST)\n"
 
 .PHONY: re
 re: fclean all
