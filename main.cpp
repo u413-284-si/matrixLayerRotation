@@ -56,9 +56,10 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	nRows = matrix.size();
 	int	nCols = matrix[0].size();
 	int	cycleNum = std::min(nRows, nCols) / 2;
-	int	cycleArr[cycleNum][2 * (nRows + nCols) - 4] = {};
+	int	cycleArr[cycleNum][2 * (nRows + nCols) - 4];
 	int	cycleIdx, cycleLen, i, x, y;
 
+	std::fill(&cycleArr[0][0], &cycleArr[0][0] + cycleNum * (2 * (nRows + nCols) - 4), 0);
 	for (cycleIdx = 0; cycleIdx < cycleNum; cycleIdx++){
 		i = 0;
 		x = y = cycleIdx;
