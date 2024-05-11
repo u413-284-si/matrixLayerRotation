@@ -56,7 +56,8 @@ from the first, set the boolean "constMatrix" to false, indicating that the
 matrix is not constant.
 */
 void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols, bool& constMatrix){
-	int	firstElement = {};
+	int			firstElement = {};
+	std::string	testStr;
 
 	for (int i = 0; i < nRows; i++) {
         matrix[i].resize(nCols);
@@ -75,5 +76,8 @@ void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows
 			matrix[i][j] = matrixRowItem;
 		}
     }
+	std::getline(std::cin, testStr);
+	if (!testStr.empty())
+		throw std::invalid_argument(INV_ROW_SZ);
 	return;
 }
