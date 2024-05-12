@@ -48,7 +48,7 @@ void matrixRotation(std::vector<std::vector<int>> matrix, int r){
 		x = y = cycleIdx;
 		for (; y < nRows - cycleIdx - 1; y++)
 			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
-		for (; x < nCols - cycleIdx -1; x++)
+		for (; x < nCols - cycleIdx - 1; x++)
 			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
 		for (; y > cycleIdx; y--)
 			matrix[y][x] = cycleArr[cycleIdx][i++ % cycleLen];
