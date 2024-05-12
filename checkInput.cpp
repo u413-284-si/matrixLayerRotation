@@ -1,7 +1,13 @@
 #include "checkInput.hpp"
 
-/* Verify validity of input regarding matrix dimensions and number of
+/**
+ * @brief Verify validity of input regarding matrix dimensions and number of
 rotations according to the subject limitations.
+ * 
+ * @param input 		Input string containing conditions
+ * @param nRows 		Number of matrix rows
+ * @param nCols 		Number of matrix columns
+ * @param nRotations 	Number of rotations
  */
 void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, int& nCols, int& nRotations){
 	if (input.size() != 3)
@@ -22,8 +28,12 @@ void	checkMatrixConditions(const std::vector<std::string>& input, int& nRows, in
 	return;
 }
 
-/* Verify number of row elements corresponds to the amount specified
+/**
+ * @brief Verify number of row elements corresponds to the amount specified
 beforehand as number of columns.
+ * 
+ * @param matrixRow 	Input string containing row elements
+ * @param nCols 		Number of matrix columns
  */
 void	checkRowSize(const std::vector<std::string>& matrixRow, const int& nCols){
 	if (static_cast<int>(matrixRow.size()) != nCols)
@@ -31,7 +41,10 @@ void	checkRowSize(const std::vector<std::string>& matrixRow, const int& nCols){
 	return;
 }
 
-/* Verifiy that each matrix element stays within the subject limitations.
+/**
+ * @brief Verifiy that each matrix element stays within the subject limitations.
+ * 
+ * @param element		Matrix element 
  */
 void	checkMatrixElements(const int& element){
 	if (element < 1 || element > 1e8)
@@ -39,7 +52,12 @@ void	checkMatrixElements(const int& element){
 	return;
 }
 
-/* Parse line from standard input and check its contents validity.
+/**
+ * @brief Parse line from standard input and check its contents validity.
+ * 
+ * @param nRows 		Number of matrix rows
+ * @param nCols 		Number of matrix columns
+ * @param nRotations 	Number of rotations
  */
 void	parseMatrixConditions(int& nRows, int& nCols, int& nRotations){
     std::string	firstMultipleInputTemp;
@@ -50,11 +68,17 @@ void	parseMatrixConditions(int& nRows, int& nCols, int& nRotations){
 	return;
 }
 
-/* Parse as many lines from standard input as specified by "nRows" and check its
+/**
+ * @brief Parse as many lines from standard input as specified by "nRows" and check its
 contents validity. Save valid elements into matrix. If one element is different
 from the first, set the boolean "constMatrix" to false, indicating that the
 matrix is not constant.
-*/
+ * 
+ * @param matrix 		Matrix where elements are stored
+ * @param nRows 		Number of matrix rows
+ * @param nCols 		Number of matrix columns
+ * @param constMatrix 	Boolean indicating if the matrix is constant
+ */
 void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols, bool& constMatrix){
 	int			firstElement = {};
 	std::string	testStr;

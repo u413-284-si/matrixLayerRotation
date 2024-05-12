@@ -1,5 +1,10 @@
 #include "main.hpp"
 
+/**
+ * @brief Main function to execute the program.
+ * 
+ * @return int	0 for successful execution, 1 for errorw
+ */
 int main(void)
 {
 	int		nRows, nCols, nRotations;

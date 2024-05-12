@@ -1,14 +1,18 @@
 #include "rotateMatrix.hpp"
 
-/* Take matrix to be rotated and the number of rotations.
+/**
+ * @brief Take matrix to be rotated and the number of rotations.
 Read matrix elements into a buffer array "cycleArr". The matrix is read in
 cycles spiraling inwards where each cycle is traversed in counter-clockwise
 direction. One cycle is saved into one row of "cycleArr". Then the matrix is
 traversed in the same manner where each element is being assigned the
 corresponding element from "cycleArr" in order to represent a counter-clockwise
-rotation. Finally the new matrix is printed to standard output.  
+rotation. Finally the new matrix is printed to standard output.
+ * 
+ * @param matrix 	Copy of matrix where elements are stored
+ * @param r 		Number of rotations
  */
-void matrixRotation(std::vector<std::vector<int>> matrix, int r){
+void	matrixRotation(std::vector<std::vector<int>> matrix, int r){
 	int	nRows = matrix.size();
 	int	nCols = matrix[0].size();
 	// Number of cycles determined by the smaller matrix dimension which is

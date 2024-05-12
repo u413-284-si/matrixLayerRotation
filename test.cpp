@@ -58,7 +58,7 @@ void	runTests(const std::string& name, size_t total, const std::pair<std::string
 }
 
 /**
- * @brief Tests provided by the subject
+ * @brief Tests provided by the subject.
  * 
  */
 void	testSubject(void){
@@ -73,7 +73,7 @@ void	testSubject(void){
 }
 
 /**
- * @brief Test integer overflow
+ * @brief Test integer overflow.
  * 
  */
 void	testOverflow(void){
@@ -92,7 +92,7 @@ void	testOverflow(void){
 }
 
 /**
- * @brief Test for non numeric characters
+ * @brief Test for non numeric characters.
  * 
  */
 void	testNonNumeric(void){
@@ -107,7 +107,7 @@ void	testNonNumeric(void){
 }
 
 /**
- * @brief Test for empty strings
+ * @brief Test for empty strings.
  * 
  */
 void	testEmpty(void){
@@ -123,7 +123,7 @@ void	testEmpty(void){
 }
 
 /**
- * @brief Test for invalid input
+ * @brief Test for invalid input.
  * 
  */
 void	testInvalid(void){
@@ -152,7 +152,7 @@ void	testInvalid(void){
 }
 
 /**
- * @brief Main for running tests
+ * @brief Main for running tests.
  * 
  * @return int	0 for successful execution
  */

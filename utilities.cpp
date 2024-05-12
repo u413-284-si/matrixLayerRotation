@@ -1,6 +1,10 @@
 #include "utilities.hpp"
 
-/* Remove spaces at the beginning of the string str.
+/**
+ * @brief Remove spaces at the beginning of the string str.
+ * 
+ * @param str 			Original string
+ * @return std::string 	New string without spaces
  */
 std::string ltrim(const std::string& str) {
     std::string s(str);
@@ -13,7 +17,11 @@ std::string ltrim(const std::string& str) {
     return s;
 }
 
-/* Remove spaces from the end of the string str.
+/**
+ * @brief Remove spaces from the end of the string str.
+ * 
+ * @param str 			Original string
+ * @return std::string 	New string without spaces
  */
 std::string rtrim(const std::string &str) {
     std::string s(str);
@@ -26,8 +34,12 @@ std::string rtrim(const std::string &str) {
     return s;
 }
 
-/* Split main string str by spaces and save substrings into a string vector.
-Skips intermediary spaces.
+/**
+ * @brief Split string str by space as deliminator and save substrings into a
+string vector. Skip additional intermediary spaces.
+ * 
+ * @param str 							Original string
+ * @return std::vector<std::string> 	Vector containing substrings
  */
 std::vector<std::string> split(const std::string &str) {
     std::vector<std::string> tokens;
@@ -47,7 +59,13 @@ std::vector<std::string> split(const std::string &str) {
     return tokens;
 }
 
-/* Print matrix elements separated by a space to standard output line by line.
+/**
+ * @brief Print matrix elements separated by a space to standard output line by
+ line.
+ * 
+ * @param matrix 	Matrix where elements are stored
+ * @param nRows 	Number of matrix rows
+ * @param nCols 	Number of matrix columns
  */
 void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, const int& nCols){
 	for (int y = 0; y < nRows; y++){
