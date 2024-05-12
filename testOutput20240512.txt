@@ -1,0 +1,327 @@
+==7815== Memcheck, a memory error detector
+==7815== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==7815== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==7815== Command: ./test
+==7815== 
+
+* SUBJECT TEST CASES *
+
+Test [0]:
+4 4 1
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[32m
+SUCCESS -- result:
+2 3 4 8
+1 7 11 12
+5 6 10 16
+9 13 14 15[0m
+
+Test [1]:
+4 4 2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[32m
+SUCCESS -- result:
+3 4 8 12
+2 11 10 16
+1 7 6 15
+5 9 13 14[0m
+
+Test [2]:
+5 4 7
+1 2 3 4
+7 8 9 10
+13 14 15 16
+19 20 21 22
+25 26 27 28
+[32m
+SUCCESS -- result:
+28 27 26 25
+22 9 15 19
+16 8 21 13
+10 14 20 7
+4 3 2 1[0m
+
+Test [3]:
+2 2 3
+1 1
+1 1
+[32m
+SUCCESS -- result:
+1 1
+1 1[0m
+
+* OVERFLOW TEST CASES *
+
+Test [0]:
+2147483648 4 1
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: stoi[0m
+
+Test [1]:
+4 2147483648 2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: stoi[0m
+
+Test [2]:
+5 4 2147483648
+1 2 3 4
+7 8 9 10
+13 14 15 16
+19 20 21 22
+25 26 27 28
+[31mError: stoi[0m
+
+Test [3]:
+2 2 3
+2147483648 1
+1 1
+[31mError: stoi[0m
+
+Test [4]:
+-2147483649 2 3
+1 1
+1 1
+[31mError: stoi[0m
+
+Test [5]:
+2 -2147483649 3
+1 1
+1 1
+[31mError: stoi[0m
+
+Test [6]:
+2 2 -2147483649
+1 1
+1 1
+[31mError: stoi[0m
+
+Test [7]:
+2 2 3
+-2147483649 1
+1 1
+[31mError: stoi[0m
+
+* NON NUMERIC TEST CASES *
+
+Test [0]:
+r 4 1
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: stoi[0m
+
+Test [1]:
+4 # 2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: stoi[0m
+
+Test [2]:
+5 4 !?
+1 2 3 4
+7 8 9 10
+13 14 15 16
+19 20 21 22
+25 26 27 28
+[31mError: stoi[0m
+
+Test [3]:
+2 2 3
+jo 1
+1 1
+[31mError: stoi[0m
+
+* EMPTY STRING TEST CASES *
+
+Test [0]:
+ 4 1
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: invalid number of arguments provided
+expected: nRows nCols nRotations[0m
+
+Test [1]:
+4  2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: invalid number of arguments provided
+expected: nRows nCols nRotations[0m
+
+Test [2]:
+5 4 
+1 2 3 4
+7 8 9 10
+13 14 15 16
+19 20 21 22
+25 26 27 28
+[31mError: invalid number of arguments provided
+expected: nRows nCols nRotations[0m
+
+Test [3]:
+2 2 3
+ 1
+1 1
+[31mError: invalid number of elements in row[0m
+
+Test [4]:
+
+[31mError: invalid number of arguments provided
+expected: nRows nCols nRotations[0m
+
+* INVALID INPUT TEST CASES *
+
+Test [0]:
+4 4
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: invalid number of arguments provided
+expected: nRows nCols nRotations[0m
+
+Test [1]:
+1 4 2
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [2]:
+301 4 2
+1 2 3 4
+7 8 9 10
+13 14 15 16
+19 20 21 22
+25 26 27 28
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [3]:
+2 1 3
+1 1
+1 1
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [4]:
+2 301 3
+1 1
+1 1
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [5]:
+5 3 3
+1 1
+1 1
+[31mError: invalid matrix dimension provided
+expected: min(nRows, nCols) to be even[0m
+
+Test [6]:
+2 2 0
+1 1
+1 1
+[31mError: invalid rotation dimension provided
+expected: 1 <= nRotations <= 10⁹[0m
+
+Test [7]:
+2 2 1000000001
+1 1
+1 1
+[31mError: invalid rotation dimension provided
+expected: 1 <= nRotations <= 10⁹[0m
+
+Test [8]:
+-2 2 3
+1 1
+1 1
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [9]:
+2 -2 3
+1 1
+1 1
+[31mError: invalid matrix dimension provided
+expected: 2 <= nRows, nCols <= 300[0m
+
+Test [10]:
+2 2 -3
+1 1
+1 1
+[31mError: invalid rotation dimension provided
+expected: 1 <= nRotations <= 10⁹[0m
+
+Test [11]:
+2 2 3
+1 
+1 1
+[31mError: invalid number of elements in row[0m
+
+Test [12]:
+2 2 3
+1 0
+1 1
+[31mError: invalid matrix element dimension provided
+expected: 1 <= element <= 10⁸[0m
+
+Test [13]:
+2 2 3
+1 -1
+1 1
+[31mError: invalid matrix element dimension provided
+expected: 1 <= element <= 10⁸[0m
+
+Test [14]:
+2 2 3
+1 100000001
+1 1
+[31mError: invalid matrix element dimension provided
+expected: 1 <= element <= 10⁸[0m
+
+Test [15]:
+2 2 3
+1 1
+[31mError: invalid number of elements in row[0m
+
+Test [16]:
+2 2 3
+
+[31mError: invalid number of elements in row[0m
+
+Test [17]:
+2 2 3
+1 1
+1 1
+1 1
+[31mError: invalid number of elements in row[0m
+==7815== 
+==7815== HEAP SUMMARY:
+==7815==     in use at exit: 0 bytes in 0 blocks
+==7815==   total heap usage: 379 allocs, 379 frees, 102,386 bytes allocated
+==7815== 
+==7815== All heap blocks were freed -- no leaks are possible
+==7815== 
+==7815== For lists of detected and suppressed errors, rerun with: -s
+==7815== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
