@@ -52,11 +52,11 @@ still in the project directory)
 ```
 
 2. Input the parameters defining the program conditions:
-nRows nCols nRotations
+m n r
 
-- nRows = number of matrix rows
-- nCols = number of matrix columns
-- nRotations = number of rotations
+- m = number of matrix rows
+- n = number of matrix columns
+- r = number of rotations
 
 3. Input the matrix
 
