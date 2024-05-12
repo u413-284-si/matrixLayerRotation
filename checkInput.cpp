@@ -100,8 +100,5 @@ void	parseMatrixElements(std::vector<std::vector<int>>& matrix, const int& nRows
 			matrix[i][j] = matrixRowItem;
 		}
     }
-	std::getline(std::cin, testStr);
-	if (!testStr.empty())
-		throw std::invalid_argument(INV_ROW_SZ);
 	return;
 }
