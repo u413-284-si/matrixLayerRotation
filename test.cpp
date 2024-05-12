@@ -1,21 +1,26 @@
 #include "test.hpp"
 
-/* Run series of tests provided as pairs: First element is the test input,
+/**
+ * @brief Run series of tests provided as pairs: First element is the test input,
 second is the expected result. To be able to interact with the program
 the input and output are redirected to string streams.
+ * 
+ * @param name		Name of the test series being run
+ * @param total		Total number of tests
+ * @param tests		Array of tests containig pairs
  */
-void	runTests(const std::string& name, size_t total,\
-			const std::pair<std::string, std::string> tests[]){
+void	runTests(const std::string& name, size_t total, const std::pair<std::string, std::string> tests[]){
+	// Save original stream buffer
+	std::streambuf*	oldCin = std::cin.rdbuf();
+	std::streambuf*	oldCout = std::cout.rdbuf();
+
 	std::cout << "\n* " << name << " *\n";
 	for (size_t i = 0; i < total; i++){
 		std::cout << "\nTest [" << i << "]:\n" << tests[i].first << std::endl;
-		// Initialise with test input
+		// Initialise input string stream with test input
 		std::istringstream	iss(tests[i].first);
 		std::ostringstream	oss;
-		// Save original stream buffer
-		std::streambuf*		oldCin = std::cin.rdbuf();
-		std::streambuf*		oldCout = std::cout.rdbuf();
-		// Redirect stream buffer to stringstreams
+		// Redirect stream buffer to string streams
 		std::cin.rdbuf(iss.rdbuf());
 		std::cout.rdbuf(oss.rdbuf());
 		try{
@@ -52,7 +57,9 @@ void	runTests(const std::string& name, size_t total,\
 	return;
 }
 
-/* Tests provided by the subject
+/**
+ * @brief Tests provided by the subject
+ * 
  */
 void	testSubject(void){
 	std::pair<std::string, std::string>	tests[] = {
@@ -65,7 +72,9 @@ void	testSubject(void){
 	return;
 }
 
-/* Test integer overflow
+/**
+ * @brief Test integer overflow
+ * 
  */
 void	testOverflow(void){
 	std::pair<std::string, std::string>	tests[] = {
@@ -82,7 +91,9 @@ void	testOverflow(void){
 	return;
 }
 
-/* Test for non numeric characters
+/**
+ * @brief Test for non numeric characters
+ * 
  */
 void	testNonNumeric(void){
 	std::pair<std::string, std::string>	tests[] = {
@@ -95,7 +106,9 @@ void	testNonNumeric(void){
 	return;
 }
 
-/* Test for empty strings
+/**
+ * @brief Test for empty strings
+ * 
  */
 void	testEmpty(void){
 	std::pair<std::string, std::string>	tests[] = {
@@ -109,7 +122,9 @@ void	testEmpty(void){
 	return;
 }
 
-/* Test for invalid input
+/**
+ * @brief Test for invalid input
+ * 
  */
 void	testInvalid(void){
 	std::pair<std::string, std::string>	tests[] = {
@@ -136,7 +151,10 @@ void	testInvalid(void){
 	return;
 }
 
-/* Main for running tests
+/**
+ * @brief Main for running tests
+ * 
+ * @return int	0 for successful execution
  */
 int	main(void){
 	testSubject();
