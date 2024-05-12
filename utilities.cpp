@@ -74,8 +74,7 @@ void	printMatrix(const std::vector<std::vector<int>>& matrix, const int& nRows, 
 			if (x < nCols -1)
 				std::cout << " ";
 		}
-		if (y < nRows - 1)
-			std::cout << std::endl;
+		std::cout << std::endl;
 	}
 	return;
 }
