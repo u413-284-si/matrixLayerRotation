@@ -86,7 +86,7 @@ make test
 The various test cases will run consecutively and are displayed on the terminal.
 
 ### Cleanup
-1. To remove the created object directory and with the compilation objects run
+1. To remove the created object directory containing the compilation objects run
 ```
 make clean
 ```
@@ -104,4 +104,4 @@ make tclean
 ## Contact & contribute
 
 Feedback and/or fixes to improve the project are always welcome. Please leave
-either an open issue or a merge request.
+either an open issue or even better a merge request.
