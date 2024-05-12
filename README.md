@@ -1,10 +1,11 @@
 # matrixLayerRotation
 
 ## Intro
-The project is a solution to the challenge <<Matrix Layer Rotation>>
-posed on hackerrang.  
-
+The project is a solution to the challenge >>Matrix Layer Rotation<<
+posed on hackerrang. The subject can be found with this
 [LINK](https://www.hackerrank.com/challenges/matrix-rotation-algo/problem)
+
+![Rotating matrix](img/matrixRotation.png)
 
 ## Project overview
 In addition to an implementation of an algorithm to solve the challenge, the
