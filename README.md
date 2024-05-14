@@ -2,7 +2,7 @@
 
 ## Intro
 The project is a solution to the challenge >>Matrix Layer Rotation<<
-posed on hackerrang. The subject can be reviewed following this
+posed on hackerrank. The subject can be reviewed following this
 [LINK](https://www.hackerrank.com/challenges/matrix-rotation-algo/problem)
 
 ![Rotating matrix](img/matrixRotation.png)
@@ -18,7 +18,7 @@ Moreover a testing suite is available covering different test cases:
 - Overflows
 - Non-numeric input
 - Empty input
-- Invalid input (according to the subject constraints on hackerrang)
+- Invalid input (according to the subject constraints on hackerrank)
 
 ![Test inavlid input](img/errorMessage.png)
 
